@@ -16,7 +16,6 @@ make build
 ## Generate Font
 
 ```sh
-make up
 make exec
-subset_gf_icons ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf home search
+subset_gf_icons ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf --flavor woff2 $(cat ../icons.json | jq -r '.icons | join(" ")')
 ```

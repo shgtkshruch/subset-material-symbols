@@ -7,4 +7,4 @@ services:
     volumes:
       - ./subset-gf-icons:/app/subset-gf-icons
       - ./material-design-icons:/app/material-design-icons
-    working_dir: /app/subset-gh-icons
+    working_dir: /app/subset-gf-icons
