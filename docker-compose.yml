@@ -1,0 +1,9 @@
+version: '3'
+services:
+  subset-font:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./subset-gf-icons:/app
+    working_dir: /app 
