@@ -3,18 +3,20 @@
 
 ## Setup
 
-```
-git clone git@github.com:google/material-design-icons.git
+```sh
+make download-font
 ```
 
 ## Build
 
-```
-docker compose up -d --build
+```sh
+make build
 ```
 
 ## Generate Font
-```
-docker compose exec subset-font bash
-subset_gf_icons ../material-design-icons/font/MaterialIcons-Regular.ttf menu alarm_on
+
+```sh
+make up
+make exec
+subset_gf_icons ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf home search
 ```
