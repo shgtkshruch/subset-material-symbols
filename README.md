@@ -14,13 +14,6 @@ Add target icons to `./icons.json`.
 You can check icon names at this URL.  
 URL: https://fonts.google.com/icons
 
-
-## Up
-
-```sh
-make up
-```
-
 ## Create Subsetted Font
 
 ```sh

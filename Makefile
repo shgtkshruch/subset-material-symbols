@@ -32,4 +32,5 @@ down:
 
 .PHONY: create-font
 create-font:
+	make up
 	docker compose exec subset-font bash -c "cat ../icons.json | jq -r '.icons | join(\" \")' | xargs subset_gf_icons --flavor woff2 ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf"
