@@ -24,8 +24,7 @@ make up
 ## Create Subsetted Font
 
 ```sh
-make exec
-subset_gf_icons ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf --flavor woff2 $(cat ../icons.json | jq -r '.icons | join(" ")')
+make create-font
 ```
 
 This command generate subsetted font to `material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght]-subset.woff2`.
