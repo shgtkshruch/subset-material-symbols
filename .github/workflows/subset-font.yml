@@ -9,36 +9,39 @@ on:
 jobs:
   subset:
     runs-on: ubuntu-latest
+    env:
+      SUBSET_GF_ICONS_DIR: subset-gf-icons
+      MATERIAL_DESIGN_ICONS_DIR: material-design-icons
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
           repository: rsheeter/subset-gf-icons
-          path: subset-gf-icons
+          path: ${{ env.SUBSET_GF_ICONS_DIR }}
       - uses: actions/checkout@v4
         with:
           repository: google/material-design-icons
-          path: material-design-icons
+          path: ${{ env.MATERIAL_DESIGN_ICONS_DIR }}
           sparse-checkout: variablefont
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
       - name: Install dependencies
-        working-directory: ./subset-gf-icons
+        working-directory: ./${{ env.SUBSET_GF_ICONS_DIR }}
         run: |
           pip install -e .
       - name: Run subset
-        working-directory: ./subset-gf-icons
+        working-directory: ./${{ env.SUBSET_GF_ICONS_DIR }}
         run: |
           icons_file_path="../icons"
           echo "import { icons } from '$icons_file_path'; console.log(JSON.stringify(icons, null, 2));" \
           | npx --yes ts-node \
           | jq -r 'join(" ")' \
-          | xargs subset_gf_icons --flavor woff2 ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf
+          | xargs subset_gf_icons --flavor woff2 ../${{ env.MATERIAL_DESIGN_ICONS_DIR }}/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf
       - name: Copy subset font file
         run: |
           mkdir -p ./font
-          cp ./material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght]-subset.woff2 ./font/MaterialSymbolsRounded-subset.woff2
+          cp ./${{ env.MATERIAL_DESIGN_ICONS_DIR }}/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght]-subset.woff2 ./font/MaterialSymbolsRounded-subset.woff2
       - name: Commit files
         run: |
           git config --local user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
