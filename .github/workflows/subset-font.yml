@@ -1,0 +1,36 @@
+name: "Subset Material Symbols"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - actions
+
+jobs:
+  subset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: rsheeter/subset-gf-icons
+          path: subset-gf-icons
+      - uses: actions/checkout@v4
+        with:
+          repository: google/material-design-icons
+          path: material-design-icons
+          sparse-checkout: variablefont
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        working-directory: ./subset-gf-icons
+        run: |
+          pip install -e .
+      - name: Run subset
+        working-directory: ./subset-gf-icons
+        run: |
+          cat ../icons.json \
+          | jq -r '.icons | join(" ")' \
+          | xargs subset_gf_icons --flavor woff2 ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf
