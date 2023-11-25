@@ -9,7 +9,7 @@ make setup
 
 ## Add Icons
 
-Add target icons to `./icons.json`.  
+Add target icons to `./icons.ts`.  
 
 You can check icon names at this URL.  
 URL: https://fonts.google.com/icons
