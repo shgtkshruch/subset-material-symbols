@@ -30,7 +30,8 @@ jobs:
       - name: Run subset
         working-directory: ./subset-gf-icons
         run: |
-          echo "import { icons } from '../icons'; console.log(JSON.stringify(icons, null, 2));" \
+          icons_file_path="../icons"
+          echo "import { icons } from '$icons_file_path'; console.log(JSON.stringify(icons, null, 2));" \
           | npx --yes ts-node \
           | jq -r 'join(" ")' \
           | xargs subset_gf_icons --flavor woff2 ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf
