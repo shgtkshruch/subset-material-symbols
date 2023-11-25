@@ -17,6 +17,7 @@ export const icons = [
   "event",
   "expand_more",
   "expand_less",
+  "favorite",
   "fiber_manual_record",
   "filter_list",
   "handshake",
