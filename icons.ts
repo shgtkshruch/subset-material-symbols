@@ -1,5 +1,4 @@
 export const icons = [
-  "add",
   "arrow_drop_down",
   "arrow_forward",
   "badge",

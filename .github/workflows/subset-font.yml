@@ -1,10 +1,13 @@
 name: "Subset Material Symbols"
 
+env:
+  ICONS_PATH: icons.ts
+
 on:
   workflow_dispatch:
   push:
     paths:
-      - icons.ts
+      - ${{ env.ICONS_PATH }}
 
 jobs:
   subset:
@@ -33,7 +36,7 @@ jobs:
       - name: Run subset
         working-directory: ./${{ env.SUBSET_GF_ICONS_DIR }}
         run: |
-          icons_file_path="../icons"
+          icons_file_path="../${{ env.ICONS_PATH }}"
           echo "import { icons } from '$icons_file_path'; console.log(JSON.stringify(icons, null, 2));" \
           | npx --yes ts-node \
           | jq -r 'join(" ")' \
@@ -48,6 +51,6 @@ jobs:
           git config --local user.name "$(git --no-pager log --format=format:'%an' -n 1)"
           git add font
           git commit -m "Add subset font file"
-      - name: Push changes
-        run: |
-          git push origin HEAD
+      # - name: Push changes
+      #   run: |
+      #     git push origin HEAD
