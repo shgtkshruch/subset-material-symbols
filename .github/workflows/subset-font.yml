@@ -34,3 +34,18 @@ jobs:
           cat ../icons.json \
           | jq -r '.icons | join(" ")' \
           | xargs subset_gf_icons --flavor woff2 ../material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf
+      - name: Copy subset font file
+        run: |
+          mkdir -p ./font
+          cp ./material-design-icons/variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght]-subset.woff2 ./font/MaterialSymbolsRounded-subset.woff2
+      - name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add font
+          git commit -m "Add subset font file"
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: ${{ github.ref }}
